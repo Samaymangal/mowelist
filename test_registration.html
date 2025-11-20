@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test User Registration</title>
+</head>
+<body>
+    <h2>Test User Registration</h2>
+    <div id="result"></div>
+
+    <script>
+        // Test data
+        const testUser = {
+            email: "test@example.com",
+            username: "testuser",
+            name: "Test User",
+            dob: "1990-01-01",
+            password: "testpassword123"
+        };
+
+        // Test the registration endpoint
+        fetch('http://localhost:8000/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(testUser)
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('result').innerHTML = `
+                <h3>Response:</h3>
+                <p>Status: See console</p>
+                <p>Data: ${data}</p>
+            `;
+            console.log('Response data:', data);
+        })
+        .catch(error => {
+            document.getElementById('result').innerHTML = `
+                <h3>Error:</h3>
+                <p>${error.message}</p>
+            `;
+            console.error('Error:', error);
+        });
+    </script>
+</body>
+</html>
